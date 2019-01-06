@@ -176,3 +176,41 @@ def search_substring(string_for_searching:str, workbook:Workbook,sheet_name:str,
     return my_list
 
 
+def search_cas_insensitive_substring(string_for_searching:str, workbook:Workbook,sheet_name:str, column:list)->list:
+    '''
+    find rows that have match string (not substhing)
+
+    :param string_for_searching: specific string for search
+    :param workbook: workbook from openpxl
+    :param sheet_name: sheet name from work book
+    :param column: specific column in work book
+    :return: list of row
+    '''
+    sheet = workbook[sheet_name]
+    my_list = []
+
+    my_set = set()
+    for column_name in column:
+
+        #get a column in excel
+        local_cell_tuple = sheet[column_name]
+
+        for cell in local_cell_tuple:
+
+            # compare
+            string_for_searching = string_for_searching.lower()
+            string_for_compare =str(cell.value).lower()
+            if string_for_searching in string_for_compare:
+
+                # get specific row from sheet
+                row = sheet[cell.row]
+
+                # check duplicate row
+                result: set = my_set & {cell.row}
+                if result.__len__() == 0:
+                    my_list.append(row)
+
+                    # update set for check duplicate next time
+                    my_set = result
+
+    return my_list
