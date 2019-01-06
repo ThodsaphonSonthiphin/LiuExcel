@@ -138,6 +138,41 @@ def search_case_insensitive_all_sheet(string_for_searching: str, workbook: Workb
     return my_list_for_return
 
 
+def search_substring(string_for_searching:str, workbook:Workbook,sheet_name:str, column:list)->list:
+    '''
+    find rows that have match string (not substhing)
 
+    :param string_for_searching: specific string for search
+    :param workbook: workbook from openpxl
+    :param sheet_name: sheet name from work book
+    :param column: specific column in work book
+    :return: list of row
+    '''
+    sheet = workbook[sheet_name]
+    my_list = []
+
+    my_set = set()
+    for column_name in column:
+
+        #get a column in excel
+        local_cell_tuple = sheet[column_name]
+
+        for cell in local_cell_tuple:
+
+            # compare
+            if string_for_searching in str(cell.value):
+
+                # get specific row from sheet
+                row = sheet[cell.row]
+
+                # check duplicate row
+                result: set = my_set & {cell.row}
+                if result.__len__() == 0:
+                    my_list.append(row)
+
+                    # update set for check duplicate next time
+                    my_set = result
+
+    return my_list
 
 
