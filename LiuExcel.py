@@ -47,7 +47,7 @@ def search_case_insensitive(string_for_searching:str, workbook:Workbook,sheet_na
 
                 # check duplicate row
                 result: set = my_set & {cell.row}
-                if result.__len__() != 0:
+                if result.__len__() == 0:
                     my_list.append(row)
 
                     # update set for check duplicate next time
@@ -85,7 +85,7 @@ def search_case_sensitive(string_for_searching: str, workbook: Workbook, sheet_n
 
                 # check duplicate row
                 result: set = my_set & {cell.row}
-                if result.__len__() != 0:
+                if result.__len__() == 0:
                     my_list.append(row)
 
                     # update set for check duplicate next time
