@@ -176,7 +176,7 @@ def search_substring(string_for_searching:str, workbook:Workbook,sheet_name:str,
     return my_list
 
 
-def search_cas_insensitive_substring(string_for_searching:str, workbook:Workbook,sheet_name:str, column:list)->list:
+def search_case_insensitive_substring(string_for_searching:str, workbook:Workbook,sheet_name:str, column:list)->list:
     '''
     find rows that have match string (not substhing)
 
