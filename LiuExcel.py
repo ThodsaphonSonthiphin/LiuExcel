@@ -12,11 +12,11 @@ def load_workbook(name:str)->openpyxl.Workbook:
 
 
 
-my_workbook = load_workbook("mergeCell.xlsx")
-
-list_of_sheet_name = my_workbook.sheetnames
-
-sheet = my_workbook[list_of_sheet_name[0]]
+# my_workbook = load_workbook("mergeCell.xlsx")
+#
+# list_of_sheet_name = my_workbook.sheetnames
+#
+# sheet = my_workbook[list_of_sheet_name[0]]
 
 def search_case_insensitive(string_for_searching:str, workbook:Workbook,sheet_name:str, column:list)->list:
     '''
@@ -118,7 +118,7 @@ def search_case_insensitive_all_sheet(string_for_searching: str, workbook: Workb
     for row in range(1, max_row+1):
         for column in range(1, max_column):
 
-            if string_for_searching.lower() == sheet.cell(row=row, column= column).value:
+            if string_for_searching.lower() == str(sheet.cell(row=row, column= column).value).lower():
 
                 # get specific row from sheet
                 row_in_sheet = sheet[row]
@@ -141,6 +141,3 @@ def search_case_insensitive_all_sheet(string_for_searching: str, workbook: Workb
 
 
 
-result = search_case_insensitive_all_sheet("hi",my_workbook,list_of_sheet_name[0])
-
-print(result)
