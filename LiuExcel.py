@@ -12,11 +12,11 @@ def load_workbook(name:str)->openpyxl.Workbook:
 
 
 
-# my_workbook = load_workbook("mergeCell.xlsx")
-#
-# list_of_sheet_name = my_workbook.sheetnames
-#
-# sheet = my_workbook[list_of_sheet_name[0]]
+my_workbook = load_workbook("mergeCell.xlsx")
+
+list_of_sheet_name = my_workbook.sheetnames
+
+sheet = my_workbook[list_of_sheet_name[0]]
 
 def search_case_insensitive(string_for_searching:str, workbook:Workbook,sheet_name:str, column:list)->list:
     '''
@@ -92,3 +92,55 @@ def search_case_sensitive(string_for_searching: str, workbook: Workbook, sheet_n
                     my_set = result
 
     return my_list
+
+
+
+
+def search_case_insensitive_all_sheet(string_for_searching: str, workbook: Workbook, sheet_name: str) -> list:
+
+    '''
+    seach case insensitive all sheet
+    :param string_for_searching: string_for_searching: specific string for search
+    :param workbook: workbook from openpxl
+    :param sheet_name: sheet name from work book
+    :return: list of dictionary
+    '''
+    sheet = workbook[sheet_name]
+
+    max_row = sheet.max_row
+    max_column = sheet.max_column
+
+    my_list_for_return = []
+    my_set = set()
+    my_dictionary = {}
+
+    # iter each cell in excel
+    for row in range(1, max_row+1):
+        for column in range(1, max_column):
+
+            if string_for_searching.lower() == sheet.cell(row=row, column= column).value:
+
+                # get specific row from sheet
+                row_in_sheet = sheet[row]
+
+                # check duplicate row
+                result: set = my_set & {row}
+                if result.__len__() == 0:
+
+                    coordinate = sheet.cell(row= row, column= column).coordinate
+                    my_dictionary[coordinate] = row_in_sheet
+                    my_list_for_return.append(my_dictionary)
+                    my_dictionary = {}
+
+                    # update set for check duplicate next time
+                    my_set = result
+
+    return my_list_for_return
+
+
+
+
+
+result = search_case_insensitive_all_sheet("hi",my_workbook,list_of_sheet_name[0])
+
+print(result)
