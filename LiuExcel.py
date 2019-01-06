@@ -25,7 +25,7 @@ def search_case_insensitive(string_for_searching:str, workbook:Workbook,sheet_na
     :param string_for_searching: specific string for search
     :param workbook: workbook from openpxl
     :param sheet_name: sheet name from work book
-    :param column: specific column in work book
+    :param column: specific column in work book ex: "A", "B"
     :return: list of row
     '''
     sheet = workbook[sheet_name]
@@ -63,7 +63,7 @@ def search_case_sensitive(string_for_searching: str, workbook: Workbook, sheet_n
     :param string_for_searching: specific string for search
     :param workbook: workbook from openpxl
     :param sheet_name: sheet name from work book
-    :param column: specific column in work book
+    :param column: specific column in work book ex: "A", "B"
     :return: list of row
     '''
     sheet = workbook[sheet_name]
@@ -102,7 +102,7 @@ def search_case_insensitive_all_sheet(string_for_searching: str, workbook: Workb
     seach case insensitive all sheet
     :param string_for_searching: string_for_searching: specific string for search
     :param workbook: workbook from openpxl
-    :param sheet_name: sheet name from work book
+    :param sheet_name: specific column in work book ex: "A", "B"
     :return: list of dictionary
     '''
     sheet = workbook[sheet_name]
@@ -145,7 +145,7 @@ def search_substring(string_for_searching:str, workbook:Workbook,sheet_name:str,
     :param string_for_searching: specific string for search
     :param workbook: workbook from openpxl
     :param sheet_name: sheet name from work book
-    :param column: specific column in work book
+    :param column: specific column in work book ex: "A", "B"
     :return: list of row
     '''
     sheet = workbook[sheet_name]
@@ -183,7 +183,7 @@ def search_case_insensitive_substring(string_for_searching:str, workbook:Workboo
     :param string_for_searching: specific string for search
     :param workbook: workbook from openpxl
     :param sheet_name: sheet name from work book
-    :param column: specific column in work book
+    :param column: specific column in work book ex: "A", "B"
     :return: list of row
     '''
     sheet = workbook[sheet_name]
