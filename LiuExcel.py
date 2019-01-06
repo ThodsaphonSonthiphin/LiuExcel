@@ -30,6 +30,8 @@ def search_case_insensitive(string_for_searching:str, workbook:Workbook,sheet_na
     '''
     sheet = workbook[sheet_name]
     my_list = []
+
+    my_set = set()
     for column_name in column:
 
         #get a column in excel
@@ -43,14 +45,18 @@ def search_case_insensitive(string_for_searching:str, workbook:Workbook,sheet_na
                 # get specific row from sheet
                 row = sheet[cell.row]
 
-                my_list.append(row)
+                # check duplicate row
+                result: set = my_set & {cell.row}
+                if result.__len__() != 0:
+                    my_list.append(row)
+
+                    # update set for check duplicate next time
+                    my_set = result
 
     return my_list
 
 
-
-def search_case_sensitive(string_for_searching:str, workbook:Workbook,sheet_name:str, column:list)->list:
-
+def search_case_sensitive(string_for_searching: str, workbook: Workbook, sheet_name: str, column: list) -> list:
     '''
     find rows that have match string (not substhing)
 
@@ -60,12 +66,13 @@ def search_case_sensitive(string_for_searching:str, workbook:Workbook,sheet_name
     :param column: specific column in work book
     :return: list of row
     '''
-
     sheet = workbook[sheet_name]
     my_list = []
+
+    my_set = set()
     for column_name in column:
 
-        #get a column in excel
+        # get a column in excel
         local_cell_tuple = sheet[column_name]
 
         for cell in local_cell_tuple:
@@ -76,7 +83,12 @@ def search_case_sensitive(string_for_searching:str, workbook:Workbook,sheet_name
                 # get specific row from sheet
                 row = sheet[cell.row]
 
-                my_list.append(row)
+                # check duplicate row
+                result: set = my_set & {cell.row}
+                if result.__len__() != 0:
+                    my_list.append(row)
+
+                    # update set for check duplicate next time
+                    my_set = result
 
     return my_list
-
